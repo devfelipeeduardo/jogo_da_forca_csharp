@@ -1,5 +1,64 @@
 ﻿namespace JogoDaForca
 {
+
+    public class Boneco
+    {
+        private List<string> boneco;
+        public Boneco()
+        {
+
+            boneco = new List<string>();
+
+            boneco.Add("|-----↓   \n" +
+                       "|     |   \n" +
+                       "|     O   \n" +
+                       "|    -|-  \n" +
+                       "|    / \\ \n");
+
+            boneco.Add("|-----↓   \n" +
+                       "|     |   \n" +
+                       "|     O   \n" +
+                       "|    -|-  \n" +
+                       "|    /    \n");
+
+            boneco.Add("|-----↓   \n" +
+                       "|     |   \n" +
+                       "|     O   \n" +
+                       "|    -|-  \n" +
+                       "|         \n");
+
+            boneco.Add("|-----↓   \n" +
+                       "|     |   \n" +
+                       "|     O   \n" +
+                       "|    -|   \n" +
+                       "|         \n");
+
+            boneco.Add("|-----↓   \n" +
+                       "|     |   \n" +
+                       "|     O   \n" +
+                       "|    |    \n" +
+                       "|         \n");
+
+            boneco.Add("|-----↓   \n" +
+                       "|     |   \n" +
+                       "|     O   \n" +
+                       "|         \n" +
+                       "|         \n");
+
+            boneco.Add("|-----↓   \n" +
+                       "|     |   \n" +
+                       "|     X   \n" +
+                       "|         \n" +
+                       "|         \n");
+        }
+
+        public string GetBonecoByIndex(int index)
+        {
+            return boneco[index];
+        }
+
+    }
+
     public class Palavra
     {
         public string palavraGerada { get; private set; }
@@ -14,7 +73,7 @@
         {
             int randomIndex = random.Next(listaDePalavras.Count);
             palavraGerada = listaDePalavras[randomIndex];
-            tentativasMaximas = 5;
+            tentativasMaximas = 7;
         }
 
         public string RetornaPalavraEscondida()
@@ -32,6 +91,8 @@
 
             string palavraEscondida = RetornaPalavraEscondida();
 
+            Boneco boneco = new Boneco();
+
             while (true)
             {
                 Console.Clear();
@@ -39,7 +100,30 @@
                 Console.WriteLine("|----------------------------|");
                 Console.WriteLine("| Bem vindo ao jogo da forca |");
                 Console.WriteLine("|----------------------------|");
-                Console.WriteLine("Tentativas disponíves:" + tentativasMaximas);
+
+                switch (tentativasMaximas)
+                {
+                    case 7:
+                        Console.WriteLine(boneco.GetBonecoByIndex(0));
+                        break;
+                    case 6:
+                        Console.WriteLine(boneco.GetBonecoByIndex(1));
+                        break;
+                    case 5:
+                        Console.WriteLine(boneco.GetBonecoByIndex(2));
+                        break;
+                    case 4:
+                        Console.WriteLine(boneco.GetBonecoByIndex(3));
+                        break;
+                    case 3:
+                        Console.WriteLine(boneco.GetBonecoByIndex(4));
+                        break;
+                    case 2:
+                        Console.WriteLine(boneco.GetBonecoByIndex(5));
+                        break;
+                    case 1:
+                        break;
+                }
 
                 Console.WriteLine("Palavra: " + palavraEscondida);
 
@@ -67,14 +151,18 @@
                     {
                         tentativasMaximas -= 1;
 
-                        if (tentativasMaximas <= 0)
+                        if (tentativasMaximas == 1)
                         {
                             Console.Clear();
+
+                            Console.WriteLine(boneco.GetBonecoByIndex(6));
+
                             Console.WriteLine("Você perdeu!, a palavra escondida era:" + palavraGerada);
                             break;
                         }
                     }
-                } catch
+                }
+                catch
                 {
                     Console.Clear();
                     Console.WriteLine("Digite uma letra entre A-Z");
